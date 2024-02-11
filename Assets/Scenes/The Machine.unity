@@ -255,7 +255,7 @@ Transform:
   m_GameObject: {fileID: 119701826}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 3.2500002, z: 0}
+  m_LocalPosition: {x: 0, y: 3.5000002, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -316,8 +316,8 @@ MonoBehaviour:
   SpawnSpread: 8
   MinTorque: 10
   MaxTorque: 25
-  MinShootForce: 5
-  MaxShootForce: 10
+  MinShootForce: 4
+  MaxShootForce: 6
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -784,6 +784,37 @@ Transform:
   - {fileID: 1879436209}
   m_Father: {fileID: 33693433}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1258381250
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1258381251}
+  m_Layer: 0
+  m_Name: Terrain
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1258381251
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1258381250}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1320702128
 GameObject:
   m_ObjectHideFlags: 0
@@ -840,8 +871,8 @@ MonoBehaviour:
   - {fileID: 1914725125}
   - {fileID: 934046388}
   - {fileID: 1512040126}
-  InteractionRadius: 0.5
-  MovementSpeed: 30
+  InteractionRadius: 0.25
+  MovementSpeed: 20
 --- !u!1 &1512040125
 GameObject:
   m_ObjectHideFlags: 0
@@ -1699,3 +1730,4 @@ SceneRoots:
   - {fileID: 1320702129}
   - {fileID: 276947703}
   - {fileID: 754483170}
+  - {fileID: 1258381251}

@@ -1,16 +1,21 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Star : MonoBehaviour
 {
+	// Inspector
 	public float DespawnSeconds;
 
-	[HideInInspector] public Rigidbody Rigidbody;
+	// General
+	[NonSerialized] public Rigidbody Rigidbody;
 	private Camera mainCamera;
+	public static List<Star> Instances = new List<Star>();
 
 	private void Awake()
 	{
+		Instances.Add(this);
 		mainCamera = Camera.main;
 		Rigidbody = GetComponent<Rigidbody>();
 	}
@@ -23,11 +28,21 @@ public class Star : MonoBehaviour
 		{
 			yield return null;
 			Vector3 viewportPosition = mainCamera.WorldToViewportPoint(transform.position);
-			Debug.Log(viewportPosition);
 			if (
-				viewportPosition.x < 0 || viewportPosition.x > 1
-				|| viewportPosition.y < 0 || viewportPosition.y > 1
+				viewportPosition.x < -0.5 || viewportPosition.x > 1.5
+				|| viewportPosition.y < -0.5 || viewportPosition.y > 1.5
 			) Destroy(gameObject);
 		}
+	}
+
+	public void Grab(Transform parentTransform)
+	{
+		Rigidbody.isKinematic = true;
+		transform.SetParent(parentTransform);
+	}
+
+	private void OnDestroy()
+	{
+		Instances.Remove(this);
 	}
 }

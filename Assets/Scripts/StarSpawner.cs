@@ -53,8 +53,8 @@ public class StarSpawner : MonoBehaviour
 		Vector3 targetDirection = (SpawnTarget.position - Spawn.position).normalized;
 		Vector3 upperSpread = Quaternion.AngleAxis(-SpawnSpread, Vector3.forward) * targetDirection;
 		Vector3 lowerSpread = Quaternion.AngleAxis(SpawnSpread, Vector3.forward) * targetDirection;
-		Gizmos.DrawRay(Spawn.position, upperSpread);
-		Gizmos.DrawRay(Spawn.position, lowerSpread);
+		Gizmos.DrawRay(Spawn.position, upperSpread * 50.0f);
+		Gizmos.DrawRay(Spawn.position, lowerSpread * 50.0f);
 
 		Gizmos.color = Color.magenta;
 		Gizmos.DrawSphere(SpawnTarget.position, 0.25f);

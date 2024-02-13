@@ -5,25 +5,46 @@ using UnityEngine;
 public class TheMachine : MonoBehaviour
 {
 	// Inspector
+
+	[Header("Reference Transforms")]
 	public Transform GrabPoint;
 	public Transform IdleTarget;
 	public Transform FurnaceTarget;
 	public Transform GrabBarrier;
 	public Transform[] Joints;
+
+	[Header("Tweaks")]
+	public bool MouseControlled;
 	public float InteractionRadius;
 	public float MovementSpeed;
 
 	// General
 	private Star grabbedStar;
+	public static Camera MainCamera;
 
 	// Settings
-	private const float AngleTolerance = 1;
+	private const float AngleTolerance = 0.1f;
+
+	private void Awake()
+	{
+		MainCamera = Camera.main;
+	}
 
 	private void Update()
 	{
 		// Check if grabbed star yet
-		if (!grabbedStar) GrabStar();
-		else DepositStar();
+		if (MouseControlled)
+		{
+			Vector2 mouseScreenPosition = Input.mousePosition;
+			Vector3 mousePosition = new Vector3(mouseScreenPosition.x, mouseScreenPosition.y, -MainCamera.transform.position.z);
+			Vector3 mouseWorldPosition = MainCamera.ScreenToWorldPoint(mousePosition);
+			MoveTowards(mouseWorldPosition);
+		}
+		else
+		{
+			if (!grabbedStar) GrabStar();
+			else DepositStar();
+		}
 	}
 
 	private void GrabStar()
@@ -41,7 +62,6 @@ public class TheMachine : MonoBehaviour
 			}
 		}
 
-
 		// Check if closest star exists
 		bool returnToIdle;
 		if (closestStar)
@@ -58,33 +78,33 @@ public class TheMachine : MonoBehaviour
 					grabbedStar = closestStar;
 					grabbedStar.Grab(GrabPoint);
 				}
-				else MoveTowards(closestStar.transform.position, GrabPoint.position);
+				else MoveTowards(closestStar.transform.position);
 			}
 		}
 		else returnToIdle = true;
 
 		// Return to idle position
-		if (returnToIdle) MoveTowards(IdleTarget.position, GrabPoint.position);
+		if (returnToIdle) MoveTowards(IdleTarget.position);
 	}
 
 	private void DepositStar()
 	{
-		float distanceToFurnace = Vector3.Distance(grabbedStar.transform.position, FurnaceTarget.position);
+		float distanceToFurnace = Vector3.Distance(GrabPoint.position, FurnaceTarget.position);
 
 		if (distanceToFurnace < InteractionRadius)
 		{
 			Destroy(grabbedStar.gameObject);
 			grabbedStar = null;
-		} else MoveTowards(FurnaceTarget.position, grabbedStar.transform.position);
+		} else MoveTowards(FurnaceTarget.position);
 	}
 
-	private void MoveTowards(Vector3 targetPosition, Vector3 effectorPosition)
+	private void MoveTowards(Vector3 targetPosition)
 	{
 		foreach (Transform joint in Joints)
 		{
 			// Get the angle to move between
 			Vector2 targetVector = targetPosition - joint.position;
-			Vector2 effectorVector = effectorPosition - joint.position;
+			Vector2 effectorVector = GrabPoint.position - joint.position;
 			float angleBetween = Vector3.SignedAngle(targetVector, effectorVector, -Vector3.forward);
 
 			// Move to target slowly

@@ -10,13 +10,11 @@ public class Star : MonoBehaviour
 
 	// General
 	[NonSerialized] public Rigidbody Rigidbody;
-	private Camera mainCamera;
 	public static List<Star> Instances = new List<Star>();
 
 	private void Awake()
 	{
 		Instances.Add(this);
-		mainCamera = Camera.main;
 		Rigidbody = GetComponent<Rigidbody>();
 	}
 
@@ -27,7 +25,7 @@ public class Star : MonoBehaviour
 		while (true)
 		{
 			yield return null;
-			Vector3 viewportPosition = mainCamera.WorldToViewportPoint(transform.position);
+			Vector3 viewportPosition = TheMachine.MainCamera.WorldToViewportPoint(transform.position);
 			if (
 				viewportPosition.x < -0.5 || viewportPosition.x > 1.5
 				|| viewportPosition.y < -0.5 || viewportPosition.y > 1.5

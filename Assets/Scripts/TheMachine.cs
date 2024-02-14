@@ -93,7 +93,7 @@ public class TheMachine : MonoBehaviour
 
 		if (distanceToFurnace < InteractionRadius)
 		{
-			Destroy(grabbedStar.gameObject);
+			grabbedStar.Explode();
 			grabbedStar = null;
 		} else MoveTowards(FurnaceTarget.position);
 	}

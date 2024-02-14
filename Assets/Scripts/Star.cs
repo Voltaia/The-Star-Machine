@@ -7,6 +7,7 @@ public class Star : MonoBehaviour
 {
 	// Inspector
 	public float DespawnSeconds;
+	public GameObject Explosion;
 
 	// General
 	[NonSerialized] public Rigidbody Rigidbody;
@@ -37,6 +38,12 @@ public class Star : MonoBehaviour
 	{
 		Rigidbody.isKinematic = true;
 		transform.SetParent(parentTransform);
+	}
+
+	public void Explode()
+	{
+		Destroy(gameObject);
+		Instantiate(Explosion, transform.position, Quaternion.identity);
 	}
 
 	private void OnDestroy()

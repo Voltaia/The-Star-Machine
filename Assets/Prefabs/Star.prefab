@@ -260,6 +260,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DespawnSeconds: 5
+  Explosion: {fileID: 3999646640490567252, guid: 8c064ada13805a949a08bf517b50f5f1,
+    type: 3}
 --- !u!54 &360212449940474956
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -296,8 +298,8 @@ VisualEffect:
   m_GameObject: {fileID: 5732023465301909520}
   m_Enabled: 1
   m_Asset: {fileID: 8926484042661614526, guid: 0074a0678043fd24e849406d572af55d, type: 3}
-  m_InitialEventName: OnPlay
-  m_InitialEventNameOverriden: 0
+  m_InitialEventName: Explode
+  m_InitialEventNameOverriden: 1
   m_StartSeed: 0
   m_ResetSeedOnPlay: 1
   m_AllowInstancing: 1
@@ -307,14 +309,20 @@ VisualEffect:
       m_Array:
       - m_Value: 2
         m_Name: Velocity Range
-        m_Overridden: 1
+        m_Overridden: 0
       - m_Value: 2
         m_Name: Spin Range
+        m_Overridden: 0
+      - m_Value: 0.5
+        m_Name: Spawn Area_sphere_radius
         m_Overridden: 1
     m_Vector2f:
       m_Array: []
     m_Vector3f:
-      m_Array: []
+      m_Array:
+      - m_Value: {x: 1, y: 1, z: 1}
+        m_Name: Spawn Area_sphere_transform_scale
+        m_Overridden: 0
     m_Vector4f:
       m_Array: []
     m_Uint:

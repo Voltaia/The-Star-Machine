@@ -11,6 +11,8 @@ public class TheMachine : MonoBehaviour
 	public Transform IdleTarget;
 	public Transform FurnaceTarget;
 	public Transform GrabBarrier;
+
+	[Header("Joints")]
 	public Transform[] Joints;
 
 	[Header("Tweaks")]
@@ -107,10 +109,13 @@ public class TheMachine : MonoBehaviour
 			Vector2 effectorVector = GrabPoint.position - joint.position;
 			float angleBetween = Vector3.SignedAngle(targetVector, effectorVector, -Vector3.forward);
 
-			// Move to target slowly
+			// Get the amount to actually move by
 			if (Mathf.Abs(angleBetween) <= AngleTolerance) continue;
 			float moveAngle = Mathf.Sign(angleBetween) * MovementSpeed * Time.deltaTime;
-			joint.Rotate(Vector3.forward, moveAngle);
+
+			// Apply rotation
+			Quaternion newRotation = joint.transform.localRotation * Quaternion.Euler(0, 0, moveAngle);
+			joint.transform.localRotation = newRotation;
 		}
 	}
 

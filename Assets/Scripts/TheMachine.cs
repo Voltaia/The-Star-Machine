@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class TheMachine : MonoBehaviour
 {
@@ -25,7 +26,7 @@ public class TheMachine : MonoBehaviour
 	public static Camera MainCamera;
 
 	// Settings
-	private const float AngleTolerance = 0.1f;
+	private const float AngleTolerance = 0.2f;
 
 	private void Awake()
 	{
@@ -91,9 +92,11 @@ public class TheMachine : MonoBehaviour
 
 	private void DepositStar()
 	{
-		float distanceToFurnace = Vector3.Distance(GrabPoint.position, FurnaceTarget.position);
+		// Get distance to star gate
+		float distanceToStarGate = Vector3.Distance(GrabPoint.position, FurnaceTarget.position);
 
-		if (distanceToFurnace < InteractionRadius)
+		// Either move towards the star gate or deposit the star
+		if (distanceToStarGate < InteractionRadius)
 		{
 			grabbedStar.Explode();
 			grabbedStar = null;

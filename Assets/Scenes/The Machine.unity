@@ -476,8 +476,8 @@ Camera:
   m_GameObject: {fileID: 330585543}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -1104,7 +1104,6 @@ MonoBehaviour:
   MouseControlled: 0
   InteractionRadius: 0.25
   MovementSpeed: 30
-  AngleTolerance: 0.25
 --- !u!1 &1512040125
 GameObject:
   m_ObjectHideFlags: 0
@@ -1180,6 +1179,7 @@ GameObject:
   - component: {fileID: 1792357489}
   - component: {fileID: 1792357491}
   - component: {fileID: 1792357490}
+  - component: {fileID: 1792357492}
   m_Layer: 0
   m_Name: Night Sky
   m_TagString: Untagged
@@ -1196,7 +1196,7 @@ Transform:
   m_GameObject: {fileID: 1792357488}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -17.64, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1283,6 +1283,19 @@ VisualEffect:
       m_Array: []
     m_Bool:
       m_Array: []
+--- !u!114 &1792357492
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1792357488}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a3685f033fc0f04ab21df268cf1bdbd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RotationSpeed: 1
 --- !u!1001 &1827282945
 PrefabInstance:
   m_ObjectHideFlags: 0

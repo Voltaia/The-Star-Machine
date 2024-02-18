@@ -5,6 +5,7 @@ using UnityEngine.VFX;
 
 public class StarGate : MonoBehaviour
 {
+	public Transform Center;
 	public VisualEffect[] VisualEffects;
 	public float ActivationDistance;
 
@@ -17,7 +18,7 @@ public class StarGate : MonoBehaviour
 		float closestStarDistance = Mathf.Infinity;
 		foreach (Star star in Star.Instances)
 		{
-			float distance = Vector3.Distance(transform.position, star.transform.position);
+			float distance = Vector3.Distance(Center.position, star.transform.position);
 			if (distance < closestStarDistance)
 			{
 				closestStarDistance = distance;
@@ -26,8 +27,8 @@ public class StarGate : MonoBehaviour
 		}
 
 		// Change star gate effect alpha based on distance
-		if (closestStar != null && closestStarDistance < ActivationDistance) activationAmount = 1f - (closestStarDistance / ActivationDistance);
-		else activationAmount = Mathf.Clamp01(activationAmount - 1f * Time.deltaTime);
+		if (closestStar != null && closestStarDistance <= ActivationDistance) activationAmount = 1f - (closestStarDistance / ActivationDistance);
+		else activationAmount = Mathf.Clamp01(activationAmount - 0.5f * Time.deltaTime);
 		SetActivation(activationAmount);
 	}
 

@@ -872,7 +872,7 @@ Transform:
   m_GameObject: {fileID: 713112530}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8, y: 0, z: 0}
+  m_LocalPosition: {x: 10, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -925,6 +925,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac2b57cf2809cc944bbe1c3dffcb3925, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Center: {fileID: 1851516044}
   VisualEffects:
   - {fileID: 107378622}
   - {fileID: 468756795}
@@ -1103,6 +1104,7 @@ MonoBehaviour:
   MouseControlled: 0
   InteractionRadius: 0.25
   MovementSpeed: 30
+  AngleTolerance: 0.25
 --- !u!1 &1512040125
 GameObject:
   m_ObjectHideFlags: 0
@@ -1359,7 +1361,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1851516044}
   m_Layer: 0
-  m_Name: Furnace Target
+  m_Name: Center
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

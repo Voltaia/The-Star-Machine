@@ -25,16 +25,17 @@ public class TheMachine : MonoBehaviour
 	private Star grabbedStar;
 	public static Camera MainCamera;
 
-	// Settings
-	private const float AngleTolerance = 0.2f;
-
 	private void Awake()
 	{
 		MainCamera = Camera.main;
+		Application.targetFrameRate = 60;
 	}
 
 	private void Update()
 	{
+		// Escape program if escape is pressed
+		if (Input.GetKeyDown(KeyCode.Escape)) Application.Quit();
+
 		// Check if grabbed star yet
 		if (MouseControlled)
 		{
@@ -105,19 +106,33 @@ public class TheMachine : MonoBehaviour
 
 	private void MoveTowards(Vector3 targetPosition)
 	{
-		foreach (Transform joint in Joints)
+		for (int jointIndex = 0; jointIndex < Joints.Length; jointIndex++)
 		{
+			// Get joint
+			Transform joint = Joints[jointIndex];
+
 			// Get the angle to move between
 			Vector2 targetVector = targetPosition - joint.position;
 			Vector2 effectorVector = GrabPoint.position - joint.position;
 			float angleBetween = Vector3.SignedAngle(targetVector, effectorVector, -Vector3.forward);
 
 			// Get the amount to actually move by
-			if (Mathf.Abs(angleBetween) <= AngleTolerance) continue;
 			float moveAngle = Mathf.Sign(angleBetween) * MovementSpeed * Time.deltaTime;
 
-			// Apply rotation
+			// Quick fix to clean up overshooting
+			moveAngle = Mathf.Abs(moveAngle) > Mathf.Abs(angleBetween) ? angleBetween : moveAngle;
+
+			// Get the rotation where it will be
 			Quaternion newRotation = joint.transform.localRotation * Quaternion.Euler(0, 0, moveAngle);
+
+			// HARD CODED solution for the grabber to not bend backwards
+			if (jointIndex == 0)
+			{
+				float adjustedAngle = LoopAngle(newRotation.eulerAngles.z - 160);
+				if (adjustedAngle > 200) continue;
+			}
+
+			// Apply new rotation
 			joint.transform.localRotation = newRotation;
 		}
 	}
@@ -141,6 +156,11 @@ public class TheMachine : MonoBehaviour
 		float cosineDenominator = firstVector.magnitude * secondVector.magnitude;
 		float cosineQuotient = cosineNumerator / cosineDenominator;
 		return Mathf.Acos(cosineQuotient);
+	}
+
+	private float LoopAngle(float angle)
+	{
+		return Mathf.Repeat(angle, 360);
 	}
 
 	private void OnDrawGizmos()
